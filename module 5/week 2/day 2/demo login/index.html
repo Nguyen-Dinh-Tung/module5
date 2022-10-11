@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+  </head>
+  <style>
+    .notify {
+      width: 600px;
+      height: 90px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: rgb(112, 231, 112);
+      position: absolute;
+      right: 30px;
+      animation-name: toSlide;
+      animation-duration: 1s;
+    }
+    .notify-icon {
+      padding: 12px;
+      font-size: 26px;
+      cursor: pointer;
+    }
+    .notify-content {
+      text-align: center;
+      font-size: 20px;
+      margin: 0;
+    }
+    .line-animation {
+      height: 5px;
+      width: 500px;
+      background-color: rgb(15, 142, 165);
+      padding: 0 10px;
+      display: block;
+    }
+    .container-line {
+      display: flex;
+      justify-content: center;
+    }
+    @keyframes toSlide {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+    }
+    @keyframes toNone {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(100%);
+      }
+    }
+  </style>
+  <body>
+    <div class="notify">
+      <i class="fa-solid fa-xmark notify-icon" onclick="handleClick()"></i>
+      <p class="notify-content">This is message</p>
+      <div class="container-line"><p class="line-animation"></p></div>
+    </div>
+    <div><button onclick="handleClickBtn()">Hiển thị</button></div>
+  </body>
+  <script>
+    let notify = document.querySelector(".notify");
+    let lineAnimation = document.querySelector(".line-animation");
+    let width = 500;
+    function handleDelete() {
+      const idInterval = setInterval(() => {
+        if (width > 0) {
+          width = width - 2;
+          lineAnimation.style.width = width + "px";
+          console.log(width);
+        } else {
+          notify.style.display = "none";
+          return;
+        }
+      }, 1);
+    }
+    handleDelete();
+    function handleClick() {
+      notify.style.animation = "toNone 1s 1";
+      setTimeout(() => {
+        console.log("check");
+        notify.style.display = "none";
+      }, 999);
+    }
+    function handleClickBtn() {
+      notify.style.animation = "toSlide 1s 1";
+      notify.style.display = "block";
+      handleDelete();
+    }
+  </script>
+</html>
